@@ -597,7 +597,12 @@ namespace LJ.Lus.Backend.Compute.Actors.Algorithm
             };
 
 
-            _irisImageQualityCompute.CornealCurvatureNewCompute(irisImage, innerCornealCurvatureParse, outerCornealCurvatureParse, out distance);
+            int qualityCode = _irisImageQualityCompute.CornealCurvatureNewCompute(irisImage, innerCornealCurvatureParse, outerCornealCurvatureParse, out distance);
+            if (qualityCode < 0 || qualityCode == 4)
+            {
+                return 0;
+            }
+
             var outerResult = _cornealCurvatureCalculator.Calculate(
                 outerCornealCurvatureParse[2],
                 outerCornealCurvatureParse[3],
